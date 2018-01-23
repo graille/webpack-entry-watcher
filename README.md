@@ -1,6 +1,9 @@
 # webpack-entry-watcher
 
 ## Installation
+
+    npm i -D webpack-entry-watcher
+
 ### Integration with webpack
 
 webpack.config.js :
