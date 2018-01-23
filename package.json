@@ -1,0 +1,30 @@
+{
+  "name": "webpack-entry-watcher",
+  "version": "1.0.0",
+  "description": "A Node module which watch and generate a entry object for Webpack dynamically",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graille/webpack-entry-watcher.git"
+  },
+  "keywords": [
+    "webpack",
+    "node",
+    "entry",
+    "mpa",
+    "spa"
+  ],
+  "author": "Thibault PIANA",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/graille/webpack-entry-watcher/issues"
+  },
+  "homepage": "https://github.com/graille/webpack-entry-watcher#readme",
+  "devDependencies": {
+    "glob": "^7.1.2",
+    "path": "^0.12.7"
+  }
+}
