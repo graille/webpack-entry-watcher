@@ -9,7 +9,7 @@ watcherApp.formatFile = (watcher, basePath, entries) => {
   if (typeof watcher.publicName !== 'undefined')
     entries[watcher.publicName] = watcher.path;
   else
-    entries[parser.formatPath(parser.removeExtensionFromFileName(path.relative(basePath, watcher.path)))] = watcher.path
+    entries[parser.formatPath(path.relative(basePath, watcher.path))] = watcher.path
 };
 
 watcherApp.formatDir = (watcher, basePath, entries) => {
@@ -21,7 +21,7 @@ watcherApp.formatDir = (watcher, basePath, entries) => {
         if (typeof watcher.publicPrefix !== 'undefined')
           entries[watcher.publicPrefix + filePath.slice(watcher.path.length + 1)] = filePath;
         else
-          entries[parser.formatPath(parser.removeExtensionFromFileName(path.relative(basePath, filePath)))] = filePath;
+          entries[parser.formatPath(path.relative(basePath, filePath))] = filePath;
       })
     }
   )

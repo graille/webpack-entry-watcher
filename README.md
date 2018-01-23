@@ -44,10 +44,10 @@ Let's configure ```.watcher.js``` file with following configuration
 The result :
 
     { 
-        app: '/home/webpack-entry-watcher/examples/assets/app.js' 
+        'app.js': '/home/webpack-entry-watcher/examples/assets/app.js' 
     }
 
-By default, the attribute name of the object will be the relative path of the file, without the extension :
+By default, the attribute name of the object will be the relative path of the file :
 
     module.exports = [
       {
@@ -61,8 +61,8 @@ By default, the attribute name of the object will be the relative path of the fi
 Will produce :
 
     { 
-      app: '/home/webpack-entry-watcher/examples/assets/app.js',
-      'dir/jsFile1': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js' 
+      'app.js': '/home/webpack-entry-watcher/examples/assets/app.js',
+      'dir/jsFile1.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js' 
     }
     
 You can configure this name with a ```publicName``` argument :
@@ -70,7 +70,7 @@ You can configure this name with a ```publicName``` argument :
     module.exports = [
       {
         path: path.resolve(__dirname, "./app.js"),
-        publicName: "main"
+        publicName: "main.js"
       },
       {
         path: path.resolve(__dirname, "./dir/jsFile1.js"),
@@ -84,9 +84,9 @@ You can configure this name with a ```publicName``` argument :
 Result :
 
     { 
-      main: '/home/webpack-entry-watcher/examples/assets/app.js',
-      'dir/jsFile1': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
-      'newdir/jsFile2': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js' 
+      'main.js': '/home/webpack-entry-watcher/examples/assets/app.js',
+      'dir/jsFile1.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
+      'newdir/jsFile2.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js' 
     }
 
 
@@ -97,7 +97,6 @@ In addition of files, you can watch entire directories :
     module.exports = [
       {
         path: path.resolve(__dirname, "./app.js"),
-        publicName: "main"
       },
       {
         path: path.resolve(__dirname, "./dir"),
@@ -107,10 +106,10 @@ In addition of files, you can watch entire directories :
 Result :
 
     { 
-      main: '/home/webpack-entry-watcher/examples/assets/app.js',
-      'dir/jsFile1': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
-      'dir/jsFile2': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js',
-      'dir/vueFile': '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
+      'app.js': '/home/webpack-entry-watcher/examples/assets/app.js',
+      'dir/jsFile1.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
+      'dir/jsFile2.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js',
+      'dir/vueFile.vue': '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
     }
 
     
@@ -146,13 +145,12 @@ By default, the directory watcher will not watch directories recursively
 Result :
 
     { 
-      'dir/jsFile1': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
-      'dir/jsFile2': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js',
-      'dir/subdir/app': '/home/webpack-entry-watcher/examples/assets/dir/subdir/app.js',
-      'dir/subdir/subsubdir/app': '/home/webpack-entry-watcher/examples/assets/dir/subdir/subsubdir/app.js',
-      'dir/vueFile': '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
+      'dir/jsFile1.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile1.js',
+      'dir/jsFile2.js': '/home/webpack-entry-watcher/examples/assets/dir/jsFile2.js',
+      'dir/subdir/app.js': '/home/webpack-entry-watcher/examples/assets/dir/subdir/app.js',
+      'dir/subdir/subsubdir/app.js': '/home/webpack-entry-watcher/examples/assets/dir/subdir/subsubdir/app.js',
+      'dir/vueFile.vue': '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
     }
-
 
 #### Advanced configuration
 ##### Choose extensions to watch
@@ -169,7 +167,7 @@ Example :
 Will only return vue files in the `dir` folder :
 
     { 
-      vueFile: '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
+      'vueFile.vue': '/home/webpack-entry-watcher/examples/assets/dir/vueFile.vue' 
     }
 
 ### Use compact notation

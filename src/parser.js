@@ -11,10 +11,6 @@ parser.formatPath = (name) => {
   return name;
 };
 
-parser.removeExtensionFromFileName = (fileName) => {
-  return fileName.replace(/\.[^/.]+$/, "");
-};
-
 parser.getFileNameFromPath = (fullPath) => {
   return fullPath.replace(/^.*[\\\/]/, '')
 };
