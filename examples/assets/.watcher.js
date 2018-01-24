@@ -9,6 +9,7 @@ module.exports = [
     path: path.resolve(__dirname, "./dir/subdir/app.js")
   },
   {
-    path: path.resolve(__dirname, "./dir")
+    path: path.resolve(__dirname, "./dir"),
+    publicPrefix: "dir_"
   }
 ];

@@ -24,8 +24,11 @@ watcherApp.formatDir = (watcher, basePath, entries, removeExtensions) => {
   let fileIndex;
   watcher.extensions.forEach(ext => {
       glob.sync(watcher.path + (watcher.recursive ? "\/**\/" : "\/") + "*" + ext).forEach(filePath => {
-        if (typeof watcher.publicPrefix !== 'undefined')
-          fileIndex = watcher.publicPrefix + filePath.slice(watcher.path.length + 1);
+        if (typeof watcher.publicPrefix !== 'undefined') {
+          fileIndex = filePath.slice(watcher.path.length + 1);
+          fileIndex = (removeExtensions) ? parser.removeExtensionFromFileName(fileIndex) : fileIndex;
+          fileIndex = watcher.publicPrefix + fileIndex;
+        }
         else {
           fileIndex = path.relative(basePath, filePath);
           fileIndex = (removeExtensions) ? parser.removeExtensionFromFileName(fileIndex) : fileIndex;
