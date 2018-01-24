@@ -5,29 +5,40 @@ const parser = require("./parser");
 
 let watcherApp = {};
 
-watcherApp.formatFile = (watcher, basePath, entries) => {
+watcherApp.formatFile = (watcher, basePath, entries, removeExtensions) => {
+  let fileIndex;
   if (typeof watcher.publicName !== 'undefined')
-    entries[watcher.publicName] = watcher.path;
-  else
-    entries[parser.formatPath(path.relative(basePath, watcher.path))] = watcher.path
+    fileIndex = watcher.publicName;
+  else {
+    fileIndex = path.relative(basePath, watcher.path);
+    fileIndex = (removeExtensions) ? parser.removeExtensionFromFileName(fileIndex) : fileIndex;
+    fileIndex = parser.formatPath(fileIndex);
+  }
+
+  entries[fileIndex] = watcher.path;
 };
 
-watcherApp.formatDir = (watcher, basePath, entries) => {
+watcherApp.formatDir = (watcher, basePath, entries, removeExtensions) => {
   watcher.recursive = typeof watcher.recursive !== 'undefined' ? watcher.recursive : false;
   watcher.extensions = typeof watcher.extensions !== 'undefined' ? watcher.extensions : [".*"];
-
+  let fileIndex;
   watcher.extensions.forEach(ext => {
       glob.sync(watcher.path + (watcher.recursive ? "\/**\/" : "\/") + "*" + ext).forEach(filePath => {
         if (typeof watcher.publicPrefix !== 'undefined')
-          entries[watcher.publicPrefix + filePath.slice(watcher.path.length + 1)] = filePath;
-        else
-          entries[parser.formatPath(path.relative(basePath, filePath))] = filePath;
+          fileIndex = watcher.publicPrefix + filePath.slice(watcher.path.length + 1);
+        else {
+          fileIndex = path.relative(basePath, filePath);
+          fileIndex = (removeExtensions) ? parser.removeExtensionFromFileName(fileIndex) : fileIndex;
+          fileIndex = parser.formatPath(fileIndex);
+        }
+
+        entries[fileIndex] = filePath;
       })
     }
   )
 };
 
-watcherApp.generateEntries = (watcherFilePath) => {
+watcherApp.generateEntries = (watcherFilePath, removeExtensions = false) => {
   let entries = {};
   let basePath;
   let watchersList = require(watcherFilePath);
@@ -43,9 +54,9 @@ watcherApp.generateEntries = (watcherFilePath) => {
 
       if(path.isAbsolute(watcher.path)) {
         if (fs.lstatSync(watcher.path).isDirectory())
-          watcherApp.formatDir(watcher, basePath, entries);
+          watcherApp.formatDir(watcher, basePath, entries, removeExtensions);
         else if (fs.lstatSync(watcher.path).isFile())
-          watcherApp.formatFile(watcher, basePath, entries);
+          watcherApp.formatFile(watcher, basePath, entries, removeExtensions);
         else
           throw "Unknown file type";
       }

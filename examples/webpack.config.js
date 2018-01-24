@@ -1,8 +1,7 @@
 const path = require('path');
-
 const watcher = require('../src/main.js');
 
-let entries = watcher.generateEntries(path.resolve(__dirname, './assets/.watcher.js'));
+let entries = watcher.generateEntries(path.resolve(__dirname, './assets/.watcher.js'), true);
 // Execute 'node webpack.config.js' to see the result
 console.log(entries);
 
